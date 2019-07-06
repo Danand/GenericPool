@@ -1,0 +1,17 @@
+{
+    "name": "GenericPool.Unity.Tests",
+    "references": [
+        "GUID:82dcb36000350a9489f54e2b697ecc1f"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}
