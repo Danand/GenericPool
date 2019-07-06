@@ -4,4 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)GenericPool.Unity\Assets\GenericPool.Unity\Plugins\$(TargetFileName)&quot; /y /r" />
+  </Target>
+
 </Project>
