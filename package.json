@@ -1,0 +1,18 @@
+{
+    "name": "com.danand.genericpool",
+    "category": "pools",
+    "displayName": "Generic Pool",
+    "author": "danand <danand@inbox.ru> (https://github.com/danand)",
+    "version": "0.1.3",
+    "unity": "2019.1",
+    "description": "Configurable generic pool for any objects including Unity implementation.",
+    "readme": "Generic pool",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Danand/GenericPool.git"
+    },
+    "keywords": [
+        "object pool",
+        "unity"
+    ]
+}
