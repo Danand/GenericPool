@@ -26,6 +26,11 @@ namespace GenericPool.Core
 
         public TObject Get(TObject templateObject)
         {
+            return GetWith(templateObject);
+        }
+
+        public PoolGetBuilder<TObject> GetWith(TObject templateObject)
+        {
             var id = idSelector.Invoke(templateObject);
 
             TObject instance;
@@ -50,7 +55,7 @@ namespace GenericPool.Core
                 instance = instanceSelector(templateObject);
             }
 
-            return instance;
+            return new PoolGetBuilder<TObject>(this, instance);
         }
 
         public void Put(TObject instance)

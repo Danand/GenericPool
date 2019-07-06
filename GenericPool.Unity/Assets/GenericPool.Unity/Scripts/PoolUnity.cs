@@ -32,6 +32,12 @@ namespace GenericPool.Unity
             return (TComponent)pool.Get(prefab);
         }
 
+        public PoolGetBuilder<TComponent> GetWith<TComponent>(TComponent prefab)
+            where TComponent : Component
+        {
+            return pool.GetWith(prefab) as PoolGetBuilder<TComponent>;
+        }
+
         public void Put<TComponent>(TComponent instance)
             where TComponent : Component
         {

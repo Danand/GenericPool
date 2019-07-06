@@ -88,5 +88,25 @@ namespace GenericPool.Unity.Tests
 
             Assert.AreEqual(objectAmount, pool.transform.childCount);
         }
+
+        [UnityTest]
+        public IEnumerator Get_WithBuilder()
+        {
+            var pool = new GameObject(nameof(PoolUnity)).AddComponent<PoolUnity>();
+            yield return null;
+
+            var prefab = GameObject.CreatePrimitive(PrimitiveType.Cube).transform;
+
+            prefab.name = "Cube";
+
+            yield return null;
+
+            pool.GetWith(prefab)
+                .ThenPut();
+
+            yield return null;
+
+            Assert.Pass();
+        }
     }
 }
