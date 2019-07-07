@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GenericPool.Core
+namespace GenericPool
 {
     public sealed class Pool
     {

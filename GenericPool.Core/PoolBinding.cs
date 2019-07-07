@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GenericPool.Core
+namespace GenericPool
 {
     public sealed class PoolBinding<TObject> : IPoolBinding
     {

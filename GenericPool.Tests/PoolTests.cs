@@ -1,5 +1,4 @@
-﻿using GenericPool.Core;
-using GenericPool.Tests.Dummies;
+﻿using GenericPool.Tests.Dummies;
 
 using NUnit.Framework;
 

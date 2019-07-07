@@ -24,4 +24,4 @@ sysinfo.txt
 
 # Ignore root .gitignore
 !*.pdb
-!*.pdb.meta
+!*.meta

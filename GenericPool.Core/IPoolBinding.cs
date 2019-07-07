@@ -1,4 +1,4 @@
-﻿namespace GenericPool.Core
+﻿namespace GenericPool
 {
     public interface IPoolBinding
     {

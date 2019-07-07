@@ -1,0 +1,12 @@
+{
+    "name": "com.danand.genericpool",
+    "displayName": "Generic Pool",
+    "version": "0.1.0",
+    "unity": "2019.1",
+    "description": "Configurable generic pool for any objects including Unity implementation.",
+    "keywords": [
+        "object pool",
+        "unity"
+    ],
+    "category": "Unity"
+}

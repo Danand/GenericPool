@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 
-using GenericPool.Core;
-
 namespace GenericPool.Unity
 {
     public sealed class PoolUnity : MonoBehaviour

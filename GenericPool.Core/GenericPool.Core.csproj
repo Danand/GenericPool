@@ -2,10 +2,22 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.1.0</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Danand</Authors>
+    <Description>Configurable generic pool for any objects including Unity implementation.</Description>
+    <Product>GenericPool</Product>
+    <PackageId>GenericPool</PackageId>
+    <PackageTags>object pool, unity3d</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageProjectUrl>https://github.com/Danand/GenericPool</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Danand/GenericPool.git</RepositoryUrl>
+    <AssemblyName>GenericPool</AssemblyName>
+    <RootNamespace>GenericPool</RootNamespace>
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if $(ConfigurationName) == Release (&#xD;&#xA;  echo F|xcopy &quot;$(ProjectDir)$(OutDir)$(TargetName)$(TargetExt)&quot; &quot;$(SolutionDir)GenericPool.Unity\Assets\GenericPool.Unity\Plugins\$(TargetName)$(TargetExt)&quot; /y /r&#xD;&#xA;  echo F|xcopy &quot;$(ProjectDir)$(OutDir)$(TargetName).pdb&quot; &quot;$(SolutionDir)GenericPool.Unity\Assets\GenericPool.Unity\Plugins\$(TargetName).pdb&quot; /y /r&#xD;&#xA;  call &quot;$(SolutionDir)create_unitypackage.bat&quot;&#xD;&#xA;)" />
+    <Exec Command="if $(ConfigurationName) == Release (&#xD;&#xA;  echo F|xcopy &quot;$(ProjectDir)$(OutDir)$(TargetName)$(TargetExt)&quot; &quot;$(SolutionDir)GenericPool.Unity\Assets\GenericPool.Unity\$(TargetName)$(TargetExt)&quot; /y /r&#xD;&#xA;  echo F|xcopy &quot;$(ProjectDir)$(OutDir)$(TargetName).pdb&quot; &quot;$(SolutionDir)GenericPool.Unity\Assets\GenericPool.Unity\$(TargetName).pdb&quot; /y /r&#xD;&#xA;  call &quot;$(SolutionDir)create_unitypackage.bat&quot;&#xD;&#xA;)" />
   </Target>
 
 </Project>
