@@ -24,6 +24,8 @@ namespace GenericPool.Unity
                                             instance.transform.SetParent(transform, false);
                                             instance.gameObject.SetActive(false);
                                         });
+
+            pool.PoolAwaiter = new PoolAwaiterUnityCoroutine(this);
         }
 
         public TComponent Get<TComponent>(TComponent prefab)

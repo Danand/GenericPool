@@ -7,7 +7,7 @@ namespace GenericPool.Implementations
 {
     public sealed class PoolAwaiterSystemDefault : IPoolAwaiter
     {
-        private TimeSpan delay;
+        private TimeSpan delay = TimeSpan.Zero;
 
         bool IPoolAwaiter.HasDelay
         {
@@ -16,7 +16,7 @@ namespace GenericPool.Implementations
 
         void IPoolAwaiter.AddDelay(TimeSpan delay)
         {
-            this.delay = delay;
+            this.delay += delay;
         }
 
         void IPoolAwaiter.AddTask(Action action)
