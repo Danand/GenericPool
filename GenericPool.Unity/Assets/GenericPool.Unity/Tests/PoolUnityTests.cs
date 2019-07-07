@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 using NUnit.Framework;
@@ -105,6 +106,27 @@ namespace GenericPool.Unity.Tests
                 .ThenPut();
 
             yield return null;
+
+            Assert.Pass();
+        }
+
+        [UnityTest]
+        public IEnumerator Get_WithDelay()
+        {
+            var pool = new GameObject(nameof(PoolUnity)).AddComponent<PoolUnity>();
+            yield return null;
+
+            var prefab = GameObject.CreatePrimitive(PrimitiveType.Cube).transform;
+
+            prefab.name = "Cube";
+
+            yield return null;
+
+            pool.GetWith(prefab)
+                .ThenWait(_ => TimeSpan.FromSeconds(1))
+                .ThenPut();
+
+            yield return new WaitForSeconds(2);
 
             Assert.Pass();
         }
