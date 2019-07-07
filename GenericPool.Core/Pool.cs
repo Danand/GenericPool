@@ -1,71 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GenericPool.Core
 {
-    public sealed class Pool<TObject>
+    public sealed class Pool
     {
-        private readonly Dictionary<int, Queue<TObject>> pools = new Dictionary<int, Queue<TObject>>();
+        private readonly Dictionary<int, Queue<object>> instances = new Dictionary<int, Queue<object>>();
+        private readonly List<IPoolBinding> bindings = new List<IPoolBinding>();
 
-        private readonly Func<TObject, int> idSelector;
-        private readonly Func<TObject, TObject> instanceSelector;
-        private readonly Action<TObject> getFromPoolCallback;
-        private readonly Action<TObject> putToPoolCallback;
-
-        public Pool(
+        public void Register<TObject>(
             Func<TObject, int>      idSelector,
             Func<TObject, TObject>  instanceSelector,
             Action<TObject>         getFromPoolCallback,
             Action<TObject>         putToPoolCallback)
         {
-            this.idSelector = idSelector;
-            this.instanceSelector = instanceSelector;
-            this.getFromPoolCallback = getFromPoolCallback;
-            this.putToPoolCallback = putToPoolCallback;
+            IPoolBinding binding = new PoolBinding<TObject>(idSelector, instanceSelector, getFromPoolCallback, putToPoolCallback);
+            bindings.Add(binding);
         }
 
-        public TObject Get(TObject templateObject)
+        public TObject Get<TObject>(TObject templateObject)
         {
             return GetWith(templateObject);
         }
 
-        public PoolGetBuilder<TObject> GetWith(TObject templateObject)
+        public PoolGetBuilder<TObject> GetWith<TObject>(TObject templateObject)
         {
-            var id = idSelector.Invoke(templateObject);
+            var foundBinding = bindings.First(binding => binding.CheckType<TObject>());
+            var id = foundBinding.SelectID(templateObject);
 
             TObject instance;
 
-            if (pools.TryGetValue(id, out var pool))
+            if (instances.TryGetValue(id, out var queue))
             {
-                if (pool == null)
-                    pool = pools[id] = new Queue<TObject>();
+                if (queue == null)
+                    queue = instances[id] = new Queue<object>();
 
-                if (pool.Peek() == null)
+                if (queue.Peek() == null)
                 {
-                    instance = instanceSelector(templateObject);
+                    instance = (TObject)foundBinding.SelectInstance(templateObject);
                 }
                 else
                 {
-                    instance = pool.Dequeue();
-                    getFromPoolCallback.Invoke(instance);
+                    instance = (TObject)queue.Dequeue();
+                    foundBinding.OnGetFromPool(instance);
                 }
             }
             else
             {
-                instance = instanceSelector(templateObject);
+                instance = (TObject)foundBinding.SelectInstance(templateObject);
             }
 
             return new PoolGetBuilder<TObject>(this, instance);
         }
 
-        public void Put(TObject instance)
+        public void Put<TObject>(TObject instance)
         {
-            var id = idSelector.Invoke(instance);
+            var foundBinding = bindings.First(binding => binding.CheckType<TObject>());
+            var id = foundBinding.SelectID(instance);
 
-            if (!pools.TryGetValue(id, out var pool) || pool == null)
-                pool = pools[id] = new Queue<TObject>();
+            if (!instances.TryGetValue(id, out var pool) || pool == null)
+                pool = instances[id] = new Queue<object>();
 
-            putToPoolCallback.Invoke(instance);
+            foundBinding.OnPutToPool(instance);
 
             pool.Enqueue(instance);
         }

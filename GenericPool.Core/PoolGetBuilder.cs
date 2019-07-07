@@ -4,10 +4,10 @@ namespace GenericPool.Core
 {
     public sealed class PoolGetBuilder<TObject>
     {
-        private readonly Pool<TObject> pool;
+        private readonly Pool pool;
         private readonly TObject instance;
 
-        public PoolGetBuilder(Pool<TObject> pool, TObject instance)
+        public PoolGetBuilder(Pool pool, TObject instance)
         {
             this.pool = pool;
             this.instance = instance;

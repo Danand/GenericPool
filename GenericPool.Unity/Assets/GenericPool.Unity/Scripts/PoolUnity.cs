@@ -6,11 +6,13 @@ namespace GenericPool.Unity
 {
     public sealed class PoolUnity : MonoBehaviour
     {
-        private Pool<Component> pool;
+        private Pool pool;
 
         void Awake()
         {
-            pool = new Pool<Component>(
+            pool = new Pool();
+
+            pool.Register<Component>(
                 idSelector:             instance => instance.name.Replace("(Clone)", string.Empty).GetHashCode(),
                 instanceSelector:       Instantiate,
                 getFromPoolCallback:    instance =>
@@ -29,13 +31,13 @@ namespace GenericPool.Unity
         public TComponent Get<TComponent>(TComponent prefab)
             where TComponent : Component
         {
-            return (TComponent)pool.Get(prefab);
+            return pool.Get(prefab);
         }
 
         public PoolGetBuilder<TComponent> GetWith<TComponent>(TComponent prefab)
             where TComponent : Component
         {
-            return pool.GetWith(prefab) as PoolGetBuilder<TComponent>;
+            return pool.GetWith(prefab);
         }
 
         public void Put<TComponent>(TComponent instance)

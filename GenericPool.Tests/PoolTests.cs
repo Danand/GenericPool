@@ -11,7 +11,9 @@ namespace GenericPool.Tests
         [Test]
         public void Get_Plain()
         {
-            var pool = new Pool<ObjectDummy>(
+            var pool = new Pool();
+
+            pool.Register<ObjectDummy>(
                 idSelector:             instance => instance.GetType().GetHashCode(),
                 instanceSelector:       instance => new ObjectDummy { Data = instance.Data },
                 getFromPoolCallback:    instance => TestContext.WriteLine($"Got instance of '{instance.GetType()}'"),
@@ -29,7 +31,9 @@ namespace GenericPool.Tests
         [Test]
         public void Get_WithBuilder()
         {
-            var pool = new Pool<ObjectDummy>(
+            var pool = new Pool();
+
+            pool.Register<ObjectDummy>(
                 idSelector:             instance => instance.GetType().GetHashCode(),
                 instanceSelector:       instance => new ObjectDummy { Data = instance.Data },
                 getFromPoolCallback:    instance => TestContext.WriteLine($"Got instance of '{instance.GetType()}'"),
