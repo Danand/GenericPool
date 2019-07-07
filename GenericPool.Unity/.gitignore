@@ -21,3 +21,7 @@
 [Tt]humbs.db
 sysinfo.txt
 /.vs
+
+# Ignore root .gitignore
+!*.pdb
+!*.pdb.meta

@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)GenericPool.Unity\Assets\GenericPool.Unity\Plugins\$(TargetFileName)&quot; /y /r" />
+    <Exec Command="if $(ConfigurationName) == Release (&#xD;&#xA;  echo F|xcopy &quot;$(ProjectDir)$(OutDir)$(TargetName)$(TargetExt)&quot; &quot;$(SolutionDir)GenericPool.Unity\Assets\GenericPool.Unity\Plugins\$(TargetName)$(TargetExt)&quot; /y /r&#xD;&#xA;  echo F|xcopy &quot;$(ProjectDir)$(OutDir)$(TargetName).pdb&quot; &quot;$(SolutionDir)GenericPool.Unity\Assets\GenericPool.Unity\Plugins\$(TargetName).pdb&quot; /y /r&#xD;&#xA;  call &quot;$(SolutionDir)create_unitypackage.bat&quot;&#xD;&#xA;)" />
   </Target>
 
 </Project>
