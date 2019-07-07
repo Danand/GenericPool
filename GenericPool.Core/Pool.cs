@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using GenericPool.Implementations;
+using GenericPool.Interfaces;
+
 namespace GenericPool
 {
     public sealed class Pool
     {
         private readonly Dictionary<int, Queue<object>> instances = new Dictionary<int, Queue<object>>();
         private readonly List<IPoolBinding> bindings = new List<IPoolBinding>();
+
+        public IPoolAwaiter PoolAwaiter { get; set; } = new PoolAwaiterSystemDefault();
 
         public void Register<TObject>(
             Func<TObject, int>      idSelector,
@@ -51,7 +56,7 @@ namespace GenericPool
                 instance = (TObject)foundBinding.SelectInstance(templateObject);
             }
 
-            return new PoolGetBuilder<TObject>(this, instance);
+            return new PoolGetBuilder<TObject>(this, instance, PoolAwaiter);
         }
 
         public void Put<TObject>(TObject instance)

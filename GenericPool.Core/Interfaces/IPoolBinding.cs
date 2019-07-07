@@ -1,4 +1,4 @@
-﻿namespace GenericPool
+﻿namespace GenericPool.Interfaces
 {
     public interface IPoolBinding
     {

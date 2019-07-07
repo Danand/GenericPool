@@ -1,5 +1,7 @@
 ﻿using System;
 
+using GenericPool.Interfaces;
+
 namespace GenericPool
 {
     public sealed class PoolBinding<TObject> : IPoolBinding
