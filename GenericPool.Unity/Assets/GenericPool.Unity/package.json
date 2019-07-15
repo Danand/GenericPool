@@ -4,9 +4,9 @@
     "version": "0.1.1",
     "unity": "2019.1",
     "description": "Configurable generic pool for any objects including Unity implementation.",
+    "readme": "Generic pool",
     "keywords": [
         "object pool",
         "unity"
-    ],
-    "category": "Unity"
+    ]
 }
