@@ -41,7 +41,7 @@ namespace GenericPool
                 if (queue == null)
                     queue = instances[id] = new Queue<object>();
 
-                if (queue.Peek() == null)
+                if (queue.Count == 0)
                 {
                     instance = (TObject)foundBinding.SelectInstance(templateObject);
                 }
