@@ -1,0 +1,21 @@
+name: Build and test
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  test:
+    runs-on: windows-latest
+
+    steps:
+    - name: Restore
+      run: nuget restore GenericPool.sln
+      shell: cmd
+    - name: Build
+      run: MSBuild GenericPool.sln
+      shell: cmd
+    - name: Test
+      run: NUNIT3-CONSOLE GenericPool.sln
+      shell: cmd
