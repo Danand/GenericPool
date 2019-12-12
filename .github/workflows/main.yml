@@ -5,7 +5,7 @@ on:
     branches: 
       - master
   schedule:
-    - cron:  '45 * * * *'
+    - cron:  '55 * * * *'
 
 jobs:
   test:
@@ -13,19 +13,18 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@master
       
     - name: Setup .NET
       uses: actions/setup-dotnet@master
         
-    - name: Restore
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v1
+        
+    - name: Restore NuGet packages:
       run: nuget restore GenericPool.sln
       shell: cmd
       
     - name: Build
       run: dotnet build GenericPool.sln
-      shell: cmd
-      
-    - name: Test
-      run: NUNIT3-CONSOLE GenericPool.sln
       shell: cmd
