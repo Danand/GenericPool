@@ -4,8 +4,6 @@ on:
   push:
     branches: 
       - master
-  schedule:
-    - cron:  '55 * * * *'
 
 jobs:
   test:
@@ -27,4 +25,8 @@ jobs:
       
     - name: Build
       run: dotnet build GenericPool.sln
+      shell: cmd
+      
+    - name: Test
+      run: ".packages/NUnit.ConsoleRunner.3.10.0/tools/nunit3-console.exe" "./GenericPool.Tests/bin/Debug/GenericPool.Tests.dll"
       shell: cmd
