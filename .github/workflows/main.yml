@@ -1,0 +1,31 @@
+name: Build and test
+
+on:
+  push:
+    branches: 
+      - master
+  schedule:
+    - cron:  '45 * * * *'
+
+jobs:
+  test:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@master
+        
+    - name: Restore
+      run: nuget restore GenericPool.sln
+      shell: cmd
+      
+    - name: Build
+      run: dotnet build GenericPool.sln
+      shell: cmd
+      
+    - name: Test
+      run: NUNIT3-CONSOLE GenericPool.sln
+      shell: cmd
